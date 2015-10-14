@@ -12,11 +12,9 @@ public class Practica3 {
 
         ArrayList<String> domis = dominios.getDominiosArray();
         
-        for (int i = 0; i < domis.size(); i++) {
-            histogram.increment(domis.get(i));
-        }
+        Histogram<String> histograma = DominiosHistogramBuilder.execute(domis);
 
-        HistogramDisplay histo = new HistogramDisplay(histogram);
+        HistogramDisplay histo = new HistogramDisplay(histograma);
         histo.execute();
     }
 }
