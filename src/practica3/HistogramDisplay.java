@@ -10,8 +10,11 @@ import org.jfree.ui.ApplicationFrame;
 
 public class HistogramDisplay extends ApplicationFrame{
 
-    public HistogramDisplay() {
+    private final Histogram <String> histogram;
+    
+    public HistogramDisplay(Histogram<String> histogram) {
         super("HISTOGRAM");
+        this.histogram = histogram;
         setContentPane(createPanel());
         pack();
     }
@@ -23,18 +26,17 @@ public class HistogramDisplay extends ApplicationFrame{
     }
     
     private JFreeChart createChart(DefaultCategoryDataset dataset){
-        JFreeChart chart = ChartFactory.createBarChart(null, "Dominios", "Nº Emails", dataset, PlotOrientation.VERTICAL, true, false, false);
+        JFreeChart chart = ChartFactory.createBarChart(null, "Dominios", "Nº Emails", dataset, PlotOrientation.VERTICAL, false, false, false);
         return chart;
     }
     
     private DefaultCategoryDataset createDataset (){
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.addValue(10, "ENE", "gmail.com");
-        dataset.addValue(7, "ENE", "ulpgc.es");
-        dataset.addValue(5, "ENE", "hotmail.com");
-        dataset.addValue(18, "FEB", "gmail.com");
-        dataset.addValue(17, "FEB", "ulpgc.es");
-        dataset.addValue(15, "FEB", "hotmail.com");
+        
+        for (Object key : histogram.keySet()) {
+            dataset.addValue(histogram.get(key), "", (Comparable) key);
+        }
+
         return dataset;
     }
     
